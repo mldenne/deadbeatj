@@ -60,6 +60,12 @@
         <div class="col-md-11">
           <h4>{{title}}</h4>
           <p>{{body}}</p>
+          <p>Tags:</p>
+          <ul class="tag_list nav nav-pills">
+              {{#each tag}}
+                <li role="presentation"><a id="tag" data-id="{{this.name}}">{{this.name}}</a></li>
+              {{/each}}
+          </ul>
         </div>
       </div>
     </script>

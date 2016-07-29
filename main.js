@@ -3,16 +3,15 @@ var api_root = 'https://evening-ridge-31962.herokuapp.com'
 
 $(document).ready(function(){
   var source   = $('#note-display').html();
-  console.log(source)
   var template = Handlebars.compile(source);
 
   function displayData(arr) {
       $.each(arr, function(i, note){
         var context = {
           title: note.title,
-          body: note.body
+          body: note.body,
+          tag: note.tags
         };
-        console.log(template)
         var html = template(context)
         $('#notes').append(html)
     })
@@ -22,6 +21,21 @@ $(document).ready(function(){
     displayData(data.notes)
     console.log(data)
   })
+
+
+
+  $(document.body).on('click', '#tag', function(ev){
+    ev.preventDefault()
+    console.log(ev.target.getAttribute('data-id'))
+    $.getJSON(api_root + "/api/notes/tag/" + ev.target.getAttribute('data-id'), function(data){
+      console.log("hi")
+      displayData(data.notes) //how do I clear out this element & shove the new data in...
+      console.log(data)
+    })
+  })
+
+
+
 })
 
 // $(document).ready(function(){
@@ -31,9 +45,6 @@ $(document).ready(function(){
   // var form_template = Handlebars.compile(form_source);
   // var chirp_source = $("#chirp-display").html();
   // var chirp_template = Handlebars.compile(chirp_source);
-
-  //Config vars
-  // var api_root = 'https://evening-ridge-31962.herokuapp.com'
 
   // save data to sessionStorage (use the formula)
   // var api_token(){
@@ -80,9 +91,3 @@ $(document).ready(function(){
   //   populateModal(form_template)
   //   $('#myModal').modal('show')
   // })
-
-//   $(document.body).on('submit', '#chirp-form', function(ev){
-//     ev.preventDefault()
-//     postChirpform()
-//   })
-// })
