@@ -2,6 +2,7 @@ Deadbeat Jacques
 
 GET /api/notes
 
+``` json
 {
   "notes" : [
     {
@@ -28,8 +29,11 @@ GET /api/notes
     }
   ]
 }
+```
 
 POST /api/notes -d {"title" : "My created post", "body" : "My created body", "tags" : "api, machine, first"}
+
+``` json
 {
   "note" : {
     "title" : "My created post",
@@ -43,11 +47,13 @@ POST /api/notes -d {"title" : "My created post", "body" : "My created body", "ta
     ]
   }
 }
+```
 
 If I try to create a note without a title or body, I should get back a JSON-formatted error message and a status code of 400
 
 GET /api/notes/tag/funny
 
+``` json
 {
   "tag" : {
     "name" : "funny"
@@ -77,3 +83,4 @@ GET /api/notes/tag/funny
     }
   ]
 }
+```
