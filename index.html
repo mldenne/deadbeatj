@@ -19,11 +19,10 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
     <div class="container">
-      <h1>Notemeister 5000</h1>
-      <a href="#" class="btn btn-large btn-primary" id="new-note">New Note</a>
       <div id="notes"></div>
     </div>
     <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
@@ -31,7 +30,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Modal title</h4>
+          <h4 class="modal-title">Add your new note here</h4>
         </div>
         <div class="modal-body">
           <p>One fine body&hellip;</p>
@@ -47,13 +46,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="main.js"></script>
     <script src="handlebars-v4.0.5.js"></script>
-    <script id="post-form" type="text/x-handlebars-template">
-      <form id="chirp-form">
-        <textarea id="chirp-body" name="body" placeholder="What's happening?"></textarea>
-        <button type="submit" class="btn btn-large btn-primary">Chirp It!</button>
+    <script id="note-form" type="text/x-handlebars-template">
+      <form id="note-form">
+        <textarea id="title-body" name="title" placeholder="Write your title here"></textarea>
+        <textarea id="note-body" name="body" placeholder="Write your note here"></textarea>
+        <button type="submit" class="btn btn-large btn-primary">Submit Note</button>
       </form>
     </script>
     <script id="note-display" type="text/x-handlebars-template">
+      <h1>Notemeister 5000{{this.name}}</h1>
+      <p>Welcome to Notemeister 5000, the place to leave a note about whatever you would like. Below is a list of the current notes that folks have left. If you would like to leave a note, please click on the button below!</p>
+      <a href="#" class="btn btn-info btn-sm" id="new-note">New Note</a>
+      <h3>Notes</h3>
       <div class="row">
         <div class="col-md-1">
         </div>

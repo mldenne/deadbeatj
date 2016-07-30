@@ -2,8 +2,6 @@ var api_root = 'https://evening-ridge-31962.herokuapp.com'
 
 
 $(document).ready(function(){
-  var source   = $('#note-display').html();
-  var template = Handlebars.compile(source);
 
   function displayData(arr) {
       $.each(arr, function(i, note){
@@ -13,7 +11,7 @@ $(document).ready(function(){
           tag: note.tags
         };
         var html = template(context)
-        $('#notes').append(html)
+        $('#notes').prepend(html)
     })
   }
 
@@ -22,72 +20,68 @@ $(document).ready(function(){
     console.log(data)
   })
 
+  // Handlebars templates
+  var source        = $('#note-display').html();
+  var template      = Handlebars.compile(source);
+  var form_source   = $("#note-form").html();
+  var form_template = Handlebars.compile(form_source);
+  var note_source   = $("#note-display").html();
+  var note_template = Handlebars.compile(note_source);
+
+  // function fetchNotes() {
+  //     $.getJSON(api_root + "/api/notes", function(data){
+  //       console.log(data)
+  //       if(data.length === 0){
+  //           $('#notes').html("<h1>No chirps yet. Why not post one?</h1>")
+  //       } else {
+  //         $.each(data, function(i, note){
+  //           $('#notes').append(note_template(note))
+  //         })
+  //       }
+  //     })
+  //   }
+
+  function postNoteForm() {
+    $.post({
+        url: api_root + "/api/notes",
+        data: { body: $('#note-body').val()},
+        success: function(data){
+                  console.log(data)
+                  $('#notes').prepend(html)
+                  $('#myModal').modal('hide')
+                },
+        error: function(data){
+                  console.log(data)
+                }
+    })
+  }
+
+  function populateModal(template, context, title) {
+    $('#myModal .modal-title').text(title)
+    $('#myModal .modal-body').html(template(context || {}))
+  }
+
+  displayData()
+
+  // Event Handlers
+  $('#new-note').on('click', function(ev){
+    populateModal(form_template)
+    $('#myModal').modal('show')
+  })
+
+  $(document.body).on('submit', '#note-form', function(ev){
+    ev.preventDefault()
+    postNoteForm()
+  })
 
 
   $(document.body).on('click', '#tag', function(ev){
     ev.preventDefault()
     console.log(ev.target.getAttribute('data-id'))
     $.getJSON(api_root + "/api/notes/tag/" + ev.target.getAttribute('data-id'), function(data){
-      console.log("hi")
-      displayData(data.notes) //how do I clear out this element & shove the new data in...
-      console.log(data)
+      $('#notes').replaceWith(displayData(data.notes))
+        // displayData(data.notes)
+        console.log(data)
+      })
     })
   })
-
-
-
-})
-
-// $(document).ready(function(){
-
-  // Handlebars template
-  // var form_source   = $("#post_form").html();
-  // var form_template = Handlebars.compile(form_source);
-  // var chirp_source = $("#chirp-display").html();
-  // var chirp_template = Handlebars.compile(chirp_source);
-
-  // save data to sessionStorage (use the formula)
-  // var api_token(){
-  //   sessionStorage.getItem('api_token')
-  // }
-
-  // function fetchNotes() {
-  //   $.getJSON(api_root + "/api/notes").success(function(data){
-  //     console.log(data)
-  //     if(data.length === 0){
-  //       $('#notes').html("<h1>Would you like to add a note?</h1>")
-  //     } else {
-  //       $.each(data, function(i, note){
-  //         $('#notes').append(note.body)
-  //       })
-  //     }
-  //   })
-  // }
-
-  // function postChirpForm({
-  //   $.post({
-  //     url: api_root + "posts",
-  //     data: {auth_token: auth_token, body: $('#chirp-body').val()}
-  //     success: function(data){
-  //       console.log(data)
-  //       $('#stuff').prepend(chirp_templat(data))
-  //       $('#myModal').modal('hide')
-  //     },
-  //     error: function(data){
-  //       console.log(data)
-  //     }
-  //   })
-  // }
-
-  // function populateModal(template, context, title){
-  //   $('#myModal .modal-title').text(title || "Our title")
-  //   $('#myModal .modal-body').html(template(context || {}))
-  // }
-
-  // fetchChirps()
-
-  // Event handlers
-  // $('#new-post').on('click', function(ev){
-  //   populateModal(form_template)
-  //   $('#myModal').modal('show')
-  // })
