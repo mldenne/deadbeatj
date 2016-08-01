@@ -1,4 +1,15 @@
-Deadbeat Jacques
+# Deadbeat Jacques
+
+## Requirements
+
+### Explorer Mode
+
+* Complete the Explorer Mode from Notemeister API from the Jacques assignment - completed
+* On load, app should display all the notes and a form to add a new note. The primary heading on the page should be "Notemeister 5000" - completed, notes added in with prepend so last note created shows first
+* Tag names should be links that when clicked, load the notes with that tag and change the primary heading to "Notemeister 5000: {{tag name}}" - tags are separate links, am able to get data to console log, but cannot load onto page
+* Posting a new note should add it to the top of the list and clear out the form so you can post another - having issues with backend loading in title and body, error messages "can't be blank" (this is a validation problem)
+* If I append the id of a note to the url (as: #:id), a Bootstrap modal should display with just that specific note.
+
 
 GET /api/notes
 
