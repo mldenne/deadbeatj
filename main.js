@@ -35,18 +35,6 @@ $(document).ready(function(){
     console.log(data)
   })
 
-  // Event handler
-  $(document.body).on('click', '#tag', function(ev){
-    ev.preventDefault()
-    console.log(ev.target.getAttribute('data-id'))
-    $.getJSON(api_root + "/api/notes/tag/" + ev.target.getAttribute('data-id'), function(data){
-      $('#notes').html(displayData(data.notes))
-      console.log(data)
-      console.log(data.tag.name)
-      displayTitle(data.tag.name)
-
-      })
-    })
 
   // Handlebars templates
   var source        = $('#note-display').html();
@@ -57,19 +45,6 @@ $(document).ready(function(){
   var note_template = Handlebars.compile(note_source);
   var title_source  = $('#page-title').html();
   var title_template = Handlebars.compile(title_source);
-
-  // function fetchNotes() {
-  //     $.getJSON(api_root + "/api/notes", function(data){
-  //       console.log(data)
-  //       if(data.length === 0){
-  //           $('#notes').html("<h1>No chirps yet. Why not post one?</h1>")
-  //       } else {
-  //         $.each(data, function(i, note){
-  //           $('#notes').append(note_template(note))
-  //         })
-  //       }
-  //     })
-  //   }
 
   function postNoteForm() {
     $.post({
@@ -86,10 +61,37 @@ $(document).ready(function(){
     })
   }
 
+  // Event handler
+  $(document.body).on('click', '#tag', function(ev){
+    ev.preventDefault()
+    console.log(ev.target.getAttribute('data-id'))
+    $.getJSON(api_root + "/api/notes/tag/" + ev.target.getAttribute('data-id'), function(data){
+      $('#notes').html(displayData(data.notes))
+      console.log(data)
+      console.log(data.tag.name)
+      displayTitle(data.tag.name)
+
+      })
+    })
+
   function populateModal(template, context, title) {
     $('#myModal .modal-title').text(title)
     $('#myModal .modal-body').html(template(context || {}))
   }
+
+  function fetchChirps() {
+    $.getJSON(api_root + "/api/notes" + {id: id()}).success(function(data){
+      console.log(data)
+      // if(data.posts.length === 0){
+      //     $('#stuff').html("<h1>No chirps yet. Why not post one?</h1>")
+      // } else {
+      //   $.each(data.posts, function(i, chirp){
+      //     $('#stuff').append(chirp_template(chirp))
+      //   })
+      // }
+    })
+  }
+
 
   // Event Handlers
   $('#new-note').on('click', function(ev){
