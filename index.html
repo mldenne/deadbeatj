@@ -52,12 +52,13 @@
     <script src="handlebars-v4.0.5.js"></script>
     <script id="note-form" type="text/x-handlebars-template">
       <form id="note-form">
-        <textarea id="title-body" name="title" placeholder="Write your title here"></textarea>
+        <input id="title-body" name="title" placeholder="Write your title here"></textarea>
         <textarea id="note-body" name="body" placeholder="Write your note here"></textarea>
         <button type="submit" class="btn btn-large btn-primary">Submit Note</button>
       </form>
     </script>
     <script id="note-display" type="text/x-handlebars-template">
+
       <div class="row">
         <div class="col-md-1">
         </div>
@@ -67,7 +68,7 @@
           <p>Tags:</p>
           <ul class="tag_list nav nav-pills">
               {{#each tag}}
-                <li role="presentation"><a id="tag" data-id="{{this.name}}">{{this.name}}</a></li>
+                <li role="presentation" id="tag" ><a data-id="{{this.name}}">{{this.name}}</a></li>
               {{/each}}
           </ul>
         </div>

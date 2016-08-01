@@ -25,8 +25,7 @@ $(document).ready(function(){
     ev.preventDefault()
     console.log(ev.target.getAttribute('data-id'))
     $.getJSON(api_root + "/api/notes/tag/" + ev.target.getAttribute('data-id'), function(data){
-      $('#notes').replaceWith(displayData(data.notes))
-        // displayData(data.notes)
+      $('#notes').html(displayData(data.notes))
         console.log(data)
       })
     })
