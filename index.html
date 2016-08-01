@@ -23,10 +23,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>Notemeister 5000</h1>
-      <p>Welcome to Notemeister 5000, the place to leave a note about whatever you would like. Below is a list of the current notes that folks have left. If you would like to leave a note, please click on the button below!</p>
-      <a href="#" class="btn btn-info btn-sm" id="new-note">New Note</a>
-      <h3>Notes</h3>
+      <div id="title"></div>
       <div id="notes"></div>
     </div>
     <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
@@ -50,15 +47,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="main.js"></script>
     <script src="handlebars-v4.0.5.js"></script>
-    <script id="note-form" type="text/x-handlebars-template">
-      <form id="note-form">
-        <input id="title-body" name="title" placeholder="Write your title here"></textarea>
-        <textarea id="note-body" name="body" placeholder="Write your note here"></textarea>
-        <button type="submit" class="btn btn-large btn-primary">Submit Note</button>
-      </form>
+    <script id="page-title" type="text/x-handlebars-template">
+      <div>
+        <h1>Notemeister 5000 {{tagName}}</h1>
+        <p>Welcome to Notemeister 5000, the place to leave a note about whatever you would like. Below is a list of the current notes that folks have left. If you would like to leave a note, please click on the button below!</p>
+        <a href="#" class="btn btn-info btn-sm" id="new-note">New Note</a>
+        <h3>Notes</h3>
+      </div>
     </script>
-    <script id="note-display" type="text/x-handlebars-template">
 
+    <script id="note-display" type="text/x-handlebars-template">
       <div class="row">
         <div class="col-md-1">
         </div>
@@ -68,11 +66,18 @@
           <p>Tags:</p>
           <ul class="tag_list nav nav-pills">
               {{#each tag}}
-                <li role="presentation" id="tag" ><a data-id="{{this.name}}">{{this.name}}</a></li>
+                <li role="presentation" id="tag"><a data-id="{{this.name}}">{{this.name}}</a></li>
               {{/each}}
           </ul>
         </div>
       </div>
+    </script>
+    <script id="note-form" type="text/x-handlebars-template">
+      <form id="note-form">
+        <input id="title-body" name="title" placeholder="Write your title here"></textarea>
+        <textarea id="note-body" name="body" placeholder="Write your note here"></textarea>
+        <button type="submit" class="btn btn-large btn-primary">Submit Note</button>
+      </form>
     </script>
   </body>
 </html>

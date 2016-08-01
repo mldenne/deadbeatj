@@ -3,7 +3,21 @@ var api_root = 'https://evening-ridge-31962.herokuapp.com'
 
 $(document).ready(function(){
 
+  function displayTitle(tagName){
+    if (tagName){
+      var context = {
+        tagName: ": " + tagName
+      }
+    }
+    else {
+      var context = {}
+    }
+      var html = title_template(context)
+      $('#title').html(html)
+    }
+
   function displayData(arr) {
+    $('#notes').empty()
       $.each(arr, function(i, note){
         var context = {
           title: note.title,
@@ -17,6 +31,7 @@ $(document).ready(function(){
 
   $.getJSON(api_root + "/api/notes", function(data){
     displayData(data.notes)
+    displayTitle()
     console.log(data)
   })
 
@@ -26,7 +41,10 @@ $(document).ready(function(){
     console.log(ev.target.getAttribute('data-id'))
     $.getJSON(api_root + "/api/notes/tag/" + ev.target.getAttribute('data-id'), function(data){
       $('#notes').html(displayData(data.notes))
-        console.log(data)
+      console.log(data)
+      console.log(data.tag.name)
+      displayTitle(data.tag.name)
+
       })
     })
 
@@ -37,6 +55,8 @@ $(document).ready(function(){
   var form_template = Handlebars.compile(form_source);
   var note_source   = $("#note-display").html();
   var note_template = Handlebars.compile(note_source);
+  var title_source  = $('#page-title').html();
+  var title_template = Handlebars.compile(title_source);
 
   // function fetchNotes() {
   //     $.getJSON(api_root + "/api/notes", function(data){
@@ -54,10 +74,10 @@ $(document).ready(function(){
   function postNoteForm() {
     $.post({
         url: api_root + "/api/notes",
-        data: { body: $('#note-body').val()},
+        data: { title: $('#title-body').val(), body: $('#note-body').val()},
         success: function(data){
                   console.log(data)
-                  $('#notes').prepend(html)
+                  $('#notes').prepend(note_template(data.note))
                   $('#myModal').modal('hide')
                 },
         error: function(data){
@@ -70,8 +90,6 @@ $(document).ready(function(){
     $('#myModal .modal-title').text(title)
     $('#myModal .modal-body').html(template(context || {}))
   }
-
-  displayData()
 
   // Event Handlers
   $('#new-note').on('click', function(ev){
