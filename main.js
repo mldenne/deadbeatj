@@ -1,4 +1,5 @@
-var api_root = 'https://evening-ridge-31962.herokuapp.com'
+// var api_root = 'https://evening-ridge-31962.herokuapp.com'
+var api_root = 'http://localhost:3000'
 
 
 $(document).ready(function(){
@@ -61,6 +62,17 @@ $(document).ready(function(){
     })
   }
 
+  function fetchNotes(id) {
+    $.getJSON(api_root + "/api/notes/" + id)
+      console.log(id)
+      populateModal(note_template)
+      $('#myModal').modal('show')
+  }
+
+  if(window.location.hash != ''){
+    fetchNotes(window.location.hash.replace('#', ''))
+  }
+
   // Event handler
   $(document.body).on('click', '#tag', function(ev){
     ev.preventDefault()
@@ -78,20 +90,6 @@ $(document).ready(function(){
     $('#myModal .modal-title').text(title)
     $('#myModal .modal-body').html(template(context || {}))
   }
-
-  function fetchChirps() {
-    $.getJSON(api_root + "/api/notes" + {id: id()}).success(function(data){
-      console.log(data)
-      // if(data.posts.length === 0){
-      //     $('#stuff').html("<h1>No chirps yet. Why not post one?</h1>")
-      // } else {
-      //   $.each(data.posts, function(i, chirp){
-      //     $('#stuff').append(chirp_template(chirp))
-      //   })
-      // }
-    })
-  }
-
 
   // Event Handlers
   $('#new-note').on('click', function(ev){
