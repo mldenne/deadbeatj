@@ -29,27 +29,45 @@
       <h3>Notes</h3>
       <div id="notes"></div>
     </div>
+
     <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Add your new note here</h4>
-        </div>
-        <div class="modal-body">
-          <p>One fine body&hellip;</p>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add your new note here</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="noteModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Yep, couldn't figure it out...</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="main.js"></script>
     <script src="handlebars-v4.0.5.js"></script>
+
     <script id="page-title" type="text/x-handlebars-template">
       <div>
         <h1>Notemeister 5000 {{tagName}}</h1>
@@ -72,12 +90,18 @@
         </div>
       </div>
     </script>
+
+    <script>
+
+    </script>
+
     <script id="note-form" type="text/x-handlebars-template">
       <form id="note-form">
-        <input id="title-body" name="title" placeholder="Write your title here"></textarea>
-        <textarea id="note-body" name="body" placeholder="Write your note here"></textarea>
+        <input id="title-body" class="form-control" name="title" placeholder="Write your title here"></textarea>
+        <textarea id="note-body" class="form-control" name="body" placeholder="Write your note here"></textarea>
         <button type="submit" class="btn btn-large btn-primary">Submit Note</button>
       </form>
     </script>
+
   </body>
 </html>

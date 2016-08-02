@@ -25,7 +25,7 @@ $(document).ready(function(){
           body: note.body,
           tag: note.tags
         };
-        var html = template(context)
+        var html = note_template(context)
         $('#notes').prepend(html)
     })
   }
@@ -33,7 +33,7 @@ $(document).ready(function(){
   $.getJSON(api_root + "/api/notes", function(data){
     displayData(data.notes)
     displayTitle()
-    console.log(data)
+    // console.log(data)
   })
 
 
@@ -61,17 +61,30 @@ $(document).ready(function(){
                 }
     })
   }
+  function populateModal(template, context, title) {
+    $('#myModal .modal-title').text(title)
+    $('#myModal .modal-body').html(template(context || {}))
+  }
+  //
+  // function populateIdModal(template, context, title) {
+  //   $('#noteModal .modal-title'). //what goes here?
+  //   $('#noteModal .modal-body'). //what goes here?
+  // }
 
   function fetchNotes(id) {
-    $.getJSON(api_root + "/api/notes/" + id)
+    $.getJSON(api_root + "/api/notes/" + id, function(data){
       console.log(id)
-      populateModal(note_template)
-      $('#myModal').modal('show')
+      var context = data.note
+      populateModal(note_template, context, "Arrgh")
+      console.log(data)
+      $('#noteModal').modal('show')
+    })
   }
 
   if(window.location.hash != ''){
     fetchNotes(window.location.hash.replace('#', ''))
   }
+
 
   // Event handler
   $(document.body).on('click', '#tag', function(ev){
@@ -85,11 +98,6 @@ $(document).ready(function(){
 
       })
     })
-
-  function populateModal(template, context, title) {
-    $('#myModal .modal-title').text(title)
-    $('#myModal .modal-body').html(template(context || {}))
-  }
 
   // Event Handlers
   $('#new-note').on('click', function(ev){
