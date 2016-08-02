@@ -1,5 +1,5 @@
-// var api_root = 'https://evening-ridge-31962.herokuapp.com'
-var api_root = 'http://localhost:3000'
+var api_root = 'https://evening-ridge-31962.herokuapp.com'
+// var api_root = 'http://localhost:3000'
 
 
 $(document).ready(function(){
